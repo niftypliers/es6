@@ -1,14 +1,36 @@
+// Ref: https://www.w3schools.com/js/js_this.asp
 
+// this
 const person = {
-    'name': 'bala',
-    'age': 30,
-    'eat': function (a, b) {
-        return a + b;
+    firstName: "John",
+    lastName : "Doe",
+    id       : 5566,
+    fullName : function() {
+      return this.firstName + " " + this.lastName;
     }
-};
+  };
 
-console.log(person);
+console.log(person.firstName);
+console.log(person.fullName());
 
-console.log(person.name);
+var fullName = person.fullName;
+console.log(fullName.bind(person)());
 
-console.log(person.eat(5,3));
+
+// Arrow function
+var square = function (num) {
+    return num * num;
+}
+
+var square = num => num * num;
+
+console.log((square(5)));
+
+const data = {
+    firstName: "John",
+    lastName : "Doe",
+    id       : 5566,
+    fullName : () => this.firstName + " " + this.lastName
+  };
+
+console.log(data.fullName());
