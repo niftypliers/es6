@@ -1,36 +1,40 @@
-// Ref: https://www.w3schools.com/js/js_this.asp
-
-// this
-const person = {
-    firstName: "John",
-    lastName : "Doe",
-    id       : 5566,
-    fullName : function() {
-      return this.firstName + " " + this.lastName;
-    }
-  };
-
-console.log(person.firstName);
-console.log(person.fullName());
-
-var fullName = person.fullName;
-console.log(fullName.bind(person)());
+// Array map.
+let colors = ['red', 'green', 'blue'];
 
 
-// Arrow function
-var square = function (num) {
-    return num * num;
+for (let index = 0; index < colors.length; index++) {
+  const element = colors[index];
+  console.log(element);
 }
 
-var square = num => num * num;
+colors.map( (color) => console.log(color));
 
-console.log((square(5)));
+// Destructuring.
 
-const data = {
-    firstName: "John",
-    lastName : "Doe",
-    id       : 5566,
-    fullName : () => this.firstName + " " + this.lastName
-  };
+let address = {
+  'street': 'Raman Street',
+  'area': 'Richmond',
+  'city': 'Chennai'
+}
 
-console.log(data.fullName());
+let {street, loc, region} = address;
+
+/*street = address.street;
+area = address.area;
+city = address.city;
+*/
+console.log(street);
+console.log(area);
+console.log(city);
+
+// Spread operator.
+
+let num1 = [1, 2, 3];
+let num2 = [4, 5, 6];
+
+let num = [...num1, 'hello', ...num2, 'world'];
+
+// [1,2,3,'hello', 4,5,6,'world']
+
+//console.log(num1);
+console.log(num);
