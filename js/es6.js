@@ -1,40 +1,54 @@
-// Array map.
-let colors = ['red', 'green', 'blue'];
+// Rest
 
+[a, b, ...rest] = [10, 20, 30, 40, 50];
 
-for (let index = 0; index < colors.length; index++) {
-  const element = colors[index];
-  console.log(element);
+console.log(rest);
+
+function addNum(...num) {
+  console.log(num);
+  var sum = 0;
+  for (const iterator of num) {
+    sum += iterator;
+  }
+  console.log(sum);
 }
 
-colors.map( (color) => console.log(color));
+addNum(10, 7, 0, 6, 5, 10);
 
-// Destructuring.
-
-let address = {
-  'street': 'Raman Street',
-  'area': 'Richmond',
-  'city': 'Chennai'
+// Class
+/*
+let person1 = {
+  name: "bala",
+  walk() {
+    console.log("I can walk only with shoes")
+  }
 }
 
-let {street, loc, region} = address;
+let person2 = {
+  name: "ram",
+  walk() {
+    console.log("I can walk")
+  }
+}
 
-/*street = address.street;
-area = address.area;
-city = address.city;
+console.log(person1);
+console.log(person2);
 */
-console.log(street);
-console.log(area);
-console.log(city);
 
-// Spread operator.
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  walk() {
+    console.log("I can walk even at the age of " + this.age);
+  }
 
-let num1 = [1, 2, 3];
-let num2 = [4, 5, 6];
+  eat() {
+    console.log("I can eat");
+  }
+}
 
-let num = [...num1, 'hello', ...num2, 'world'];
-
-// [1,2,3,'hello', 4,5,6,'world']
-
-//console.log(num1);
-console.log(num);
+let person = new Person("Kumar", 30);
+person.walk();
+console.log(person.name);
