@@ -1,54 +1,77 @@
-// Rest
+/*let arrayNew = [1, return 2, return 3, return undefined];
 
-[a, b, ...rest] = [10, 20, 30, 40, 50];
+const it = arrayNew[Symbol.iterator]();
 
-console.log(rest);
-
-function addNum(...num) {
-  console.log(num);
-  var sum = 0;
-  for (const iterator of num) {
-    sum += iterator;
-  }
-  console.log(sum);
-}
-
-addNum(10, 7, 0, 6, 5, 10);
-
-// Class
-/*
-let person1 = {
-  name: "bala",
-  walk() {
-    console.log("I can walk only with shoes")
-  }
-}
-
-let person2 = {
-  name: "ram",
-  walk() {
-    console.log("I can walk")
-  }
-}
-
-console.log(person1);
-console.log(person2);
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
 */
 
-class Person {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-  walk() {
-    console.log("I can walk even at the age of " + this.age);
-  }
+const userNamesGroupedByLocation = {
+  Tokio: [
+    'Aiko',
+    'Chizu',
+    'Fushigi',
+  ],
+  'Buenos Aires': [
+    'Santiago',
+    'Valentina',
+    'Lola',
+  ],
+  'Saint Petersburg': [
+    'Sonja',
+    'Dunja',
+    'Iwan',
+    'Tanja',
+  ],
+};
 
-  eat() {
-    console.log("I can eat");
-  }
+
+//console.log(userNamesGroupedByLocation);
+
+
+
+userNamesGroupedByLocation[Symbol.iterator] = function() {
+  const cityKeys = Object.keys(this);
+  //console.log(cityKeys);
+
+let cityIndex = 0;
+let userIndex = 0;
+  return {
+    next: () => {
+      const users = this[cityKeys[cityIndex]];
+      const user = users[userIndex];
+
+      //console.log(user);
+
+      const isLastUser = userIndex >= users.length - 1;
+      if (isLastUser) {
+        // Reset user index
+        userIndex = 0;
+        // Jump to next city
+        cityIndex++
+      } else {
+        userIndex++;
+      }
+
+      return {
+        done: false,
+        value: user,        
+      };
+    },
+  };
 }
 
-let person = new Person("Kumar", 30);
-person.walk();
-console.log(person.name);
+const it = userNamesGroupedByLocation[Symbol.iterator]();
+
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+
+/*
+REF:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
+https://blog.logrocket.com/javascript-iterators-and-generators-a-complete-guide/
+ https://madasamy.medium.com/explanation-about-iterators-and-generators-in-javascript-es6-f7e669cbe96e
