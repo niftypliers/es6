@@ -1,77 +1,67 @@
-/*let arrayNew = [1, return 2, return 3, return undefined];
+// Iterators.
+let arr = [1, 2, 3];
+let it_arr = arr[Symbol.iterator]();
+console.log(arr);
+console.log(it_arr.next());
+console.log(it_arr.next());
+console.log(it_arr.next());
+console.log(it_arr.next());
 
-const it = arrayNew[Symbol.iterator]();
-
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
-*/
-
-const userNamesGroupedByLocation = {
-  Tokio: [
-    'Aiko',
-    'Chizu',
-    'Fushigi',
-  ],
-  'Buenos Aires': [
-    'Santiago',
-    'Valentina',
-    'Lola',
-  ],
-  'Saint Petersburg': [
-    'Sonja',
-    'Dunja',
-    'Iwan',
-    'Tanja',
-  ],
+let obj = {
+  fName: "Ram",
+  age: 30
 };
 
-
-//console.log(userNamesGroupedByLocation);
-
-
-
-userNamesGroupedByLocation[Symbol.iterator] = function() {
-  const cityKeys = Object.keys(this);
-  //console.log(cityKeys);
-
-let cityIndex = 0;
-let userIndex = 0;
+obj[Symbol.iterator] = function() {
   return {
     next: () => {
-      const users = this[cityKeys[cityIndex]];
-      const user = users[userIndex];
-
-      //console.log(user);
-
-      const isLastUser = userIndex >= users.length - 1;
-      if (isLastUser) {
-        // Reset user index
-        userIndex = 0;
-        // Jump to next city
-        cityIndex++
-      } else {
-        userIndex++;
-      }
-
       return {
         done: false,
-        value: user,        
-      };
-    },
+        value: "hi"
+      }
+    }
   };
 }
 
-const it = userNamesGroupedByLocation[Symbol.iterator]();
+console.log(obj);
+let it_obj = obj[Symbol.iterator]();
+console.log(it_obj.next());
 
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
+
+// Generators
+function *nameGenerator() {
+  yield 'Ram';
+  yield 'Sara';
+}
+
+function *stringGenerator() {
+  yield *nameGenerator();
+  yield 'hi';
+  yield 'yes';
+}
+
+const strings = stringGenerator();
+
+console.log(strings.next());
+console.log(strings.next());
+console.log(strings.next());
+console.log(strings.next());
+
+
+// Passing value to Generators.
+function *overrideValue() {
+  const result = yield 'hi';
+  console.log("gen:" + result);
+}
+
+const overrideIterator = overrideValue();
+console.log(overrideIterator.next());
+console.log(overrideIterator.next('abc'));
+
 
 /*
 REF:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
 https://blog.logrocket.com/javascript-iterators-and-generators-a-complete-guide/
- https://madasamy.medium.com/explanation-about-iterators-and-generators-in-javascript-es6-f7e669cbe96e
+https://madasamy.medium.com/explanation-about-iterators-and-generators-in-javascript-es6-f7e669cbe96e
+*/
